@@ -1,29 +1,29 @@
 package net.loveruby.cflat.asm;
 
 public class Label extends Assembly {
-    protected Symbol symbol;
+	protected Symbol symbol;
 
-    public Label() {
-        this(new UnnamedSymbol());
-    }
+	public Label() {
+		this(new UnnamedSymbol());
+	}
 
-    public Label(Symbol sym) {
-        this.symbol = sym;
-    }
-    
-    public Symbol symbol() {
-        return symbol;
-    }
+	public Label(Symbol sym) {
+		this.symbol = sym;
+	}
 
-    public boolean isLabel() {
-        return true;
-    }
+	public Symbol symbol() {
+		return symbol;
+	}
 
-    public String toSource(SymbolTable table) {
-        return symbol.toSource(table) + ":";
-    }
+	public boolean isLabel() {
+		return true;
+	}
 
-    public String dump() {
-        return "(Label " + symbol.dump() + ")";
-    }
+	public String toSource(SymbolTable table) {
+		return symbol.toSource(table) + ":";
+	}
+
+	public String dump() {
+		return "(Label " + symbol.dump() + ")";
+	}
 }

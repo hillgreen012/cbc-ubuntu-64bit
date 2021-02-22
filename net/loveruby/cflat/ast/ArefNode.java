@@ -1,56 +1,62 @@
 package net.loveruby.cflat.ast;
+
 import net.loveruby.cflat.type.*;
 
 public class ArefNode extends LHSNode {
-    private ExprNode expr, index;
+	private ExprNode expr, index;
 
-    public ArefNode(ExprNode expr, ExprNode index) {
-        this.expr = expr;
-        this.index = index;
-    }
+	public ArefNode(ExprNode expr, ExprNode index) {
+		this.expr = expr;
+		this.index = index;
+	}
 
-    public ExprNode expr() { return expr; }
-    public ExprNode index() { return index; }
+	public ExprNode expr() {
+		return expr;
+	}
 
-    // isMultiDimension a[x][y][z] = true.
-    // isMultiDimension a[x][y] = true.
-    // isMultiDimension a[x] = false.
-    public boolean isMultiDimension() {
-        return (expr instanceof ArefNode) && !expr.origType().isPointer();
-    }
+	public ExprNode index() {
+		return index;
+	}
 
-    // Returns base expression of (multi-dimension) array.
-    // e.g.  baseExpr of a[x][y][z] is a.
-    public ExprNode baseExpr() {
-        return isMultiDimension() ? ((ArefNode)expr).baseExpr() : expr;
-    }
+	// isMultiDimension a[x][y][z] = true.
+	// isMultiDimension a[x][y] = true.
+	// isMultiDimension a[x] = false.
+	public boolean isMultiDimension() {
+		return (expr instanceof ArefNode) && !expr.origType().isPointer();
+	}
 
-    // element size of this (multi-dimension) array
-    public long elementSize() {
-        return origType().allocSize();
-    }
+	// Returns base expression of (multi-dimension) array.
+	// e.g. baseExpr of a[x][y][z] is a.
+	public ExprNode baseExpr() {
+		return isMultiDimension() ? ((ArefNode) expr).baseExpr() : expr;
+	}
 
-    public long length() {
-        return ((ArrayType)expr.origType()).length();
-    }
+	// element size of this (multi-dimension) array
+	public long elementSize() {
+		return origType().allocSize();
+	}
 
-    protected Type origType() {
-        return expr.origType().baseType();
-    }
+	public long length() {
+		return ((ArrayType) expr.origType()).length();
+	}
 
-    public Location location() {
-        return expr.location();
-    }
+	protected Type origType() {
+		return expr.origType().baseType();
+	}
 
-    protected void _dump(Dumper d) {
-        if (type != null) {
-            d.printMember("type", type);
-        }
-        d.printMember("expr", expr);
-        d.printMember("index", index);
-    }
+	public Location location() {
+		return expr.location();
+	}
 
-    public <S,E> E accept(ASTVisitor<S,E> visitor) {
-        return visitor.visit(this);
-    }
+	protected void _dump(Dumper d) {
+		if (type != null) {
+			d.printMember("type", type);
+		}
+		d.printMember("expr", expr);
+		d.printMember("index", index);
+	}
+
+	public <S, E> E accept(ASTVisitor<S, E> visitor) {
+		return visitor.visit(this);
+	}
 }

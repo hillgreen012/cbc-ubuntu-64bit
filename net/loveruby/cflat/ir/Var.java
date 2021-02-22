@@ -1,52 +1,60 @@
 package net.loveruby.cflat.ir;
+
 import net.loveruby.cflat.entity.Entity;
 import net.loveruby.cflat.asm.Type;
 import net.loveruby.cflat.asm.Operand;
 import net.loveruby.cflat.asm.MemoryReference;
 
 public class Var extends Expr {
-    protected Entity entity;
+	protected Entity entity;
 
-    public Var(Type type, Entity entity) {
-        super(type);
-        this.entity = entity;
-    }
+	public Var(Type type, Entity entity) {
+		super(type);
+		this.entity = entity;
+	}
 
-    public boolean isVar() { return true; }
+	public boolean isVar() {
+		return true;
+	}
 
-    public Type type() {
-        if (super.type() == null) {
-            throw new Error("Var is too big to load by 1 insn");
-        }
-        return super.type();
-    }
+	public Type type() {
+		if (super.type() == null) {
+			throw new Error("Var is too big to load by 1 insn");
+		}
+		return super.type();
+	}
 
-    public String name() { return entity.name(); }
-    public Entity entity() { return entity; }
+	public String name() {
+		return entity.name();
+	}
 
-    public Operand address() {
-        return entity.address();
-    }
+	public Entity entity() {
+		return entity;
+	}
 
-    public MemoryReference memref() {
-        return entity.memref();
-    }
+	public Operand address() {
+		return entity.address();
+	}
 
-    // #@@range/addressNode{
-    public Addr addressNode(Type type) {
-        return new Addr(type, entity);
-    }
-    // #@@}
+	public MemoryReference memref() {
+		return entity.memref();
+	}
 
-    public Entity getEntityForce() {
-        return entity;
-    }
+	// #@@range/addressNode{
+	public Addr addressNode(Type type) {
+		return new Addr(type, entity);
+	}
+	// #@@}
 
-    public <S,E> E accept(IRVisitor<S,E> visitor) {
-        return visitor.visit(this);
-    }
+	public Entity getEntityForce() {
+		return entity;
+	}
 
-    protected void _dump(Dumper d) {
-        d.printMember("entity", entity.name());
-    }
+	public <S, E> E accept(IRVisitor<S, E> visitor) {
+		return visitor.visit(this);
+	}
+
+	protected void _dump(Dumper d) {
+		d.printMember("entity", entity.name());
+	}
 }

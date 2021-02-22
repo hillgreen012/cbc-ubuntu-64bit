@@ -1,84 +1,86 @@
 package net.loveruby.cflat.ast;
+
 import net.loveruby.cflat.type.Type;
 import net.loveruby.cflat.entity.Entity;
 import net.loveruby.cflat.entity.DefinedVariable;
 
 public class VariableNode extends LHSNode {
-    private Location location;
-    private String name;
-    private Entity entity;
+	private Location location;
+	private String name;
+	private Entity entity;
 
-    public VariableNode(Location loc, String name) {
-        this.location = loc;
-        this.name = name;
-    }
+	public VariableNode(Location loc, String name) {
+		this.location = loc;
+		this.name = name;
+	}
 
-    public VariableNode(DefinedVariable var) {
-        this.entity = var;
-        this.name = var.name();
-    }
+	public VariableNode(DefinedVariable var) {
+		this.entity = var;
+		this.name = var.name();
+	}
 
-    public String name() {
-        return name;
-    }
+	public String name() {
+		return name;
+	}
 
-    public boolean isResolved() {
-        return (entity != null);
-    }
+	public boolean isResolved() {
+		return (entity != null);
+	}
 
-    public Entity entity() {
-        if (entity == null) {
-            throw new Error("VariableNode.entity == null");
-        }
-        return entity;
-    }
+	public Entity entity() {
+		if (entity == null) {
+			throw new Error("VariableNode.entity == null");
+		}
+		return entity;
+	}
 
-    public void setEntity(Entity ent) {
-        entity = ent;
-    }
+	public void setEntity(Entity ent) {
+		entity = ent;
+	}
 
-    /*==============================================
-    =            fix constant entity bug            =
-    ==============================================*/
-    public boolean isLvalue() { 
-        if (entity.isConstant()) {
-            return false;
-        }
-        return true; 
-    }
+	/*
+	 * ============================================== = fix constant entity bug =
+	 * ==============================================
+	 */
+	public boolean isLvalue() {
+		if (entity.isConstant()) {
+			return false;
+		}
+		return true;
+	}
 
-    public boolean isAssignable() { 
-        if (entity.isConstant()) {
-            return false;
-        }
-        return isLoadable(); 
-    }
-    /*=====  End of fix constant entity bug  ======*/
-    
-    public TypeNode typeNode() {
-        return entity().typeNode();
-    }
+	public boolean isAssignable() {
+		if (entity.isConstant()) {
+			return false;
+		}
+		return isLoadable();
+	}
+	/* ===== End of fix constant entity bug ====== */
 
-    public boolean isParameter() {
-        return entity().isParameter();
-    }
+	public TypeNode typeNode() {
+		return entity().typeNode();
+	}
 
-    protected Type origType() {
-        return entity().type();
-    }
+	public boolean isParameter() {
+		return entity().isParameter();
+	}
 
-    public Location location() {
-        return location;
-    }
+	protected Type origType() {
+		return entity().type();
+	}
 
-    protected void _dump(Dumper d) {
-        if (type != null) {
-            d.printMember("type", type);
-        }
-        d.printMember("name", name, isResolved());
-    }
+	public Location location() {
+		return location;
+	}
 
-    public <S,E> E accept(ASTVisitor<S,E> visitor) {
-        return visitor.visit(this);
-    }
+	protected void _dump(Dumper d) {
+		if (type != null) {
+			d.printMember("type", type);
+		}
+		d.printMember("name", name, isResolved());
+	}
+
+	public <S, E> E accept(ASTVisitor<S, E> visitor) {
+		return visitor.visit(this);
+	}
 }

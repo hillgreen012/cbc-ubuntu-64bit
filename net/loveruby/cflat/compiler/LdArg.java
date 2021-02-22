@@ -1,6 +1,7 @@
 package net.loveruby.cflat.compiler;
 
 interface LdArg {
-    String toString();
-    boolean isSourceFile();
+	String toString();
+
+	boolean isSourceFile();
 }

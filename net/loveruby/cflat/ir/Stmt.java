@@ -1,23 +1,24 @@
 package net.loveruby.cflat.ir;
+
 import net.loveruby.cflat.ast.Location;
 
 abstract public class Stmt implements Dumpable {
-    protected Location location;
+	protected Location location;
 
-    public Stmt(Location loc) {
-        this.location = loc;
-    }
+	public Stmt(Location loc) {
+		this.location = loc;
+	}
 
-    abstract public <S,E> S accept(IRVisitor<S,E> visitor);
+	abstract public <S, E> S accept(IRVisitor<S, E> visitor);
 
-    public Location location() {
-        return location;
-    }
+	public Location location() {
+		return location;
+	}
 
-    public void dump(Dumper d) {
-        d.printClass(this, location);
-        _dump(d);
-    }
+	public void dump(Dumper d) {
+		d.printClass(this, location);
+		_dump(d);
+	}
 
-    abstract protected void _dump(Dumper d);
+	abstract protected void _dump(Dumper d);
 }

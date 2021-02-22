@@ -1,25 +1,26 @@
 package net.loveruby.cflat.asm;
 
 abstract public class Operand implements OperandPattern {
-    abstract public String toSource(SymbolTable table);
-    abstract public String dump();
+	abstract public String toSource(SymbolTable table);
 
-    public boolean isRegister() {
-        return false;
-    }
+	abstract public String dump();
 
-    public boolean isMemoryReference() {
-        return false;
-    }
+	public boolean isRegister() {
+		return false;
+	}
 
-    public IntegerLiteral integerLiteral() {
-        return null;
-    }
+	public boolean isMemoryReference() {
+		return false;
+	}
 
-    abstract public void collectStatistics(Statistics stats);
+	public IntegerLiteral integerLiteral() {
+		return null;
+	}
 
-    // default implementation
-    public boolean match(Operand operand) {
-        return equals(operand);
-    }
+	abstract public void collectStatistics(Statistics stats);
+
+	// default implementation
+	public boolean match(Operand operand) {
+		return equals(operand);
+	}
 }

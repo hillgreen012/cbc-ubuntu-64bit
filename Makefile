@@ -13,7 +13,7 @@ lib/libcbc.a:
 	cd lib; $(MAKE) libcbc.a
 
 clean:
-	$(ANT) clean 
+	$(ANT) clean
 	cd lib; $(MAKE) clean
 	cd test; $(MAKE) clean
 
