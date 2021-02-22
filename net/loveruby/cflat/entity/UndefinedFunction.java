@@ -11,7 +11,7 @@ public class UndefinedFunction extends Function {
 		this.params = params;
 	}
 
-	public List<CBCParameter> parameters() {
+	public List<CflatParameter> parameters() {
 		return params.parameters();
 	}
 

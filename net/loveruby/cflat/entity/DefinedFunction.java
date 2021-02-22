@@ -24,7 +24,7 @@ public class DefinedFunction extends Function {
 		return true;
 	}
 
-	public List<CBCParameter> parameters() {
+	public List<CflatParameter> parameters() {
 		return params.parameters();
 	}
 

@@ -21,7 +21,7 @@ abstract public class Function extends Entity {
 
 	abstract public boolean isDefined();
 
-	abstract public List<CBCParameter> parameters();
+	abstract public List<CflatParameter> parameters();
 
 	public Type returnType() {
 		return type().getFunctionType().returnType();

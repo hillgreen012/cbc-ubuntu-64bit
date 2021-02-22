@@ -52,7 +52,7 @@ class TypeChecker extends Visitor {
 	}
 
 	private void checkParamTypes(DefinedFunction f) {
-		for (CBCParameter param : f.parameters()) {
+		for (CflatParameter param : f.parameters()) {
 			if (isInvalidParameterType(param.type())) {
 				error(param.location(), "invalid parameter type: " + param.type());
 			}

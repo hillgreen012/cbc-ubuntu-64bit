@@ -2,8 +2,8 @@ package net.loveruby.cflat.entity;
 
 import net.loveruby.cflat.ast.TypeNode;
 
-public class CBCParameter extends DefinedVariable {
-	public CBCParameter(TypeNode type, String name) {
+public class CflatParameter extends DefinedVariable {
+	public CflatParameter(TypeNode type, String name) {
 		super(false, type, name, null);
 	}
 
